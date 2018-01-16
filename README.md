@@ -5,5 +5,6 @@ because of redirection of the ssl certificates by our company
 Ready Runs=100 Oks=58 Errors=42</span>
 
 * <span style="color:#ff00ff">**./build.ps -runs=1000 -delay=5**<br>
-Ready Runs=1000 Oks=? Errors==</span>
+Ready Runs=1000 Oks=566 Errors==434</span>
+
 
