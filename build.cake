@@ -1,12 +1,13 @@
 var target = Argument("target", "Default");
 var runs= Argument<int>("runs", 10); 
-var delay= Argument<int>("delay", 30); // in seconds
+var delay= Argument<int>("delay", 5); // in seconds
+
+var giturl= Argument("giturl", "https://github.com/jamesmontemagno/LocalizationSample.git");
 
 bool ExecuteGit()
 {
-    var dirname= "LocalizationSample";
-    var giturl= "https://github.com/jamesmontemagno/LocalizationSample.git";
-    foreach(var directory in GetDirectories(dirname))
+    var directory= System.IO.Path.GetFileNameWithoutExtension(giturl);
+    if (DirectoryExists(directory))
     {
         Information(directory);
         DeleteDirectory(directory, new DeleteDirectorySettings {
@@ -14,10 +15,10 @@ bool ExecuteGit()
             Force= true
         });
     }
-    if (DirectoryExists(dirname))
+    if (DirectoryExists(directory))
         throw new Exception("Dir not empty");
     StartProcess("cmd", new ProcessSettings { Arguments = $"/c git clone {giturl}", WorkingDirectory = MakeAbsolute(Directory("."))});
-    return DirectoryExists(dirname);
+    return DirectoryExists(directory);
 }
 
 void MessageSplit(int count= 60, ConsoleColor color= ConsoleColor.White) =>  Message(new string('-', count), color);
